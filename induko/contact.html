@@ -6,7 +6,7 @@
    <!-- Mobile Metas -->
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <!-- Site Metas -->
-   <title>Induko</title>
+   <title>EduAid</title>
    <meta name="keywords" content="">
    <meta name="description" content="">
    <meta name="author" content="">
@@ -30,6 +30,29 @@
    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
    <![endif]-->
+   <script>
+      async function submitForm() {
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword = document.getElementById("confirmPassword").value;
+
+          if (password !== confirmPassword) {
+              alert("Passwords do not match!");
+              return;
+          }
+
+          const response = await fetch("http://localhost:5000/submit-form", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, phone, password }),
+          });
+
+          const result = await response.json();
+          alert(result.message);
+      }
+  </script>
    </head>
    <body id="inner_page">
       <!-- header -->
@@ -71,7 +94,7 @@
                                     <a class="nav-link color-grey-hover" href="contact.html">Contact Us</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link color-grey-hover" href="contact.html">Login</a>
+                                    <a class="nav-link color-grey-hover" href="contact.html">Register</a>
                                  </li>
                               </ul>
                               <ul class="navbar-nav">
@@ -92,7 +115,7 @@
       <!-- end header -->
       
       <!-- section -->
-      <section class="main_full inner_page">
+   <!--  <section class="main_full inner_page">
         <div class="container-fluid">
           <div class="row">
              <div class="full">
@@ -100,7 +123,7 @@
              </div>
           </div>
         </div>
-      </section>
+      </section> -->
       <!-- end section -->
     
     <!-- section -->
@@ -124,8 +147,12 @@
                                         <input type="text" name="phone" placeholder="Phone">
                                      </div>
                                      <div class="field">
-                                        <textarea placeholder="Message"></textarea>
+                                        <input type="password" id="password" placeholder="Enter Password" required>
                                      </div>
+                                     <div class="field">
+                                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                                       </div>
+        
                                      <div class="field center">
                                        <button>Send</button>
                                   </div></fieldset>
